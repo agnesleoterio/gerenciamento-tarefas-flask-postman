@@ -8,6 +8,22 @@ tasks = [
     {'id': 2, 'title': 'Bob', 'description': 'bob@example.com', 'status': 'done', 'date': '02/02/2025'}
 ]
 
+users = [
+    {'id': 1, 'name': 'Ana', 'email': 'ana@example.com', 'password': '123456'},
+    {'id': 2, 'name': 'Agatha', 'email': 'agatha@example.com', 'password': '678910'}
+]
+
+# Endpoint para autenticar usuarios
+@app.route('/login', methods=['POST'])
+def login():
+    login_user = request.get_json()
+    for user in users:
+        if login_user['email'] == user['email']:
+            if login_user['password'] == user['password']:
+                return jsonify({'mensage': 'login successful'}), 200
+    return jsonify({'message': 'wrong credentials'}), 400
+
+
 # Endpoint para obter todos os usuários
 @app.route('/tasks', methods=['GET'])
 def get_tasks():
