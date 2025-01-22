@@ -4,8 +4,8 @@ app = Flask(__name__)
 
 # Banco de dados fictício
 tasks = [
-    {'id': 1, 'title': 'Alice', 'description': 'alice@example.com', 'status': 'done', 'date': '01/01/2025'},
-    {'id': 2, 'title': 'Bob', 'description': 'bob@example.com', 'status': 'done', 'date': '02/02/2025'}
+    {'id': 1, 'title': 'dar comida pro cachorro', 'description': 'marca da ração', 'status': 'done', 'date': '01/01/2025'},
+    {'id': 2, 'title': 'comprar leite', 'description': 'zero lactose', 'status': 'done', 'date': '02/02/2025'}
 ]
 
 users = [
