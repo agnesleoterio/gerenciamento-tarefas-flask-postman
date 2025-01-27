@@ -24,12 +24,12 @@ def login():
     return jsonify({'message': 'wrong credentials'}), 400
 
 
-# Endpoint para obter todos os usuários
+# Endpoint para obter todas as tarefas
 @app.route('/tasks', methods=['GET'])
 def get_tasks():
     return jsonify(tasks)
 
-# Endpoint para obter um usuário pelo ID
+# Endpoint para obter uma tarefa pelo ID
 @app.route('/tasks/<int:task_id>', methods=['GET'])
 def get_task(task_id):
     for task in tasks:
@@ -37,7 +37,7 @@ def get_task(task_id):
             return jsonify(task)
     return jsonify({'message': 'task not found'}), 404
 
-# Endpoint para adicionar um novo usuário
+# Endpoint para adicionar uma nova tarefa
 @app.route('/tasks', methods=['POST'])
 def add_task():
     new_task = request.get_json()
@@ -48,7 +48,7 @@ def add_task():
     tasks.append(new_task)
     return jsonify(new_task), 201
 
-# Endpoint para atualizar um usuário existente
+# Endpoint para atualizar uma tarefa existente
 @app.route('/tasks/<int:task_id>', methods=['PUT'])
 def update_task(task_id):
     for task in tasks:
@@ -58,7 +58,7 @@ def update_task(task_id):
             return jsonify(task)
     return jsonify({'message': 'task not found'}), 404
 
-# Endpoint para deletar um usuário
+# Endpoint para deletar uma tarefa
 @app.route('/tasks/<int:task_id>', methods=['DELETE'])
 def delete_task(task_id):
     for task in tasks:
