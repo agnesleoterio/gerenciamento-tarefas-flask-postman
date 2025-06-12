@@ -38,16 +38,15 @@ Ele representa uma base sólida para quem está começando a criar APIs REST e p
 
   ---
 
-## 📈 Melhorias Futuras
+## 🔧 Melhorias Futuras
 
-- 🔐 Implementação de autenticação e autorização (ex.: JWT, OAuth) para testar cenários com diferentes tipos de usuários  
-- 🧪 Adição de testes automatizados com **Pytest**, focando em testes de unidade e de integração  
-- ⚙️ Integração com **banco de dados real** (SQLite ou PostgreSQL) para testes mais realistas  
-- 🧰 Integração com ferramentas de **CI/CD** (como GitHub Actions) para execução automatizada de testes  
-- 📊 Geração de relatórios de testes com **Allure** ou ferramentas similares  
-- 📦 Criação de massa de dados usando **Faker** para testes automatizados mais robustos  
-- 📁 Organização de cenários de teste e planejamento com ferramentas como **TestRail** ou **Xray**
-- 🔁 Reescrever ou adaptar o projeto com **FastAPI**, explorando recursos modernos como documentação automática com Swagger UI
+- 📗 Adicionar testes automatizados básicos com Cypress (nível iniciante)
+- 🧪 Criar testes de API automatizados com Postman (coleção + scripts simples)
+- 📝 Organizar melhor os planos de teste e registrar evidências
+- 🧠 Explorar o uso de SQLite como banco de dados para tornar os testes mais completos
+- 📄 Documentar melhor os cenários de testes criados
+- 🚀 Aprender gradualmente sobre ferramentas de CI/CD, começando com GitHub Actions
+- 💡 Avaliar reescrever este projeto usando FastAPI como forma de aprendizado
 
 ---
 
