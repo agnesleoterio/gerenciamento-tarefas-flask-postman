@@ -1,7 +1,7 @@
 # API de Gerenciamento de Tarefas 📋
 Este é um projeto simples desenvolvido com **Flask** para gerenciar tarefas. Ele permite criar, listar, atualizar e excluir tarefas, servindo como uma introdução ao desenvolvimento de APIs REST e testes utilizando **Postman**.
 
-## 📌 Sobre o Projeto
+## 📌 Sobre/Objetivo do Projeto
 
 Este projeto foi desenvolvido com o objetivo de praticar o desenvolvimento de APIs utilizando Python e Flask, além de aplicar conceitos de testes com o Postman e gerenciar o ambiente com o Poetry.
 
@@ -62,6 +62,7 @@ $ flask run
 ```
 4. Acesse a aplicação:
 http://127.0.0.1:5000/tasks
+
 
 
 
