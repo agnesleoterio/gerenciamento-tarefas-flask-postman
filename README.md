@@ -42,7 +42,6 @@ Ele representa uma base sólida para quem está começando a criar APIs REST e p
 
 - 📗 Adicionar testes automatizados básicos com Cypress (nível iniciante)
 - 🧪 Criar testes de API automatizados com Postman (coleção + scripts simples)
-- 📝 Organizar melhor os planos de teste e registrar evidências
 - 🧠 Explorar o uso de SQLite como banco de dados para tornar os testes mais completos
 - 📄 Documentar melhor os cenários de testes criados
 - 🚀 Aprender gradualmente sobre ferramentas de CI/CD, começando com GitHub Actions
