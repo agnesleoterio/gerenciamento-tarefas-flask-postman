@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "tasks",
+			"name": "List tasks",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -26,7 +26,7 @@
 			"response": []
 		},
 		{
-			"name": "tasks/:id",
+			"name": "Get task by ID",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -46,13 +46,13 @@
 			"response": []
 		},
 		{
-			"name": "tasks",
+			"name": "Create task",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"title\": \"lavar louça\", \"description\": \"pela manhã\", \"status\": \"done\", \"date\": \"01/01/2025\"}",
+					"raw": "{\"title\": \"lavar louça\", \"description\": \"pela manhã\", \"status\": \"done\", \"due_date\": \"2025-01-01\", \"priority\": \"medium\", \"user_id\": 1}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -74,13 +74,13 @@
 			"response": []
 		},
 		{
-			"name": "tasks",
+			"name": "Update task",
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"title\": \"lavar louça\", \"description\": \"pela manhã\", \"status\": \"to do\", \"date\": \"01/01/2025\"}",
+					"raw": "{\"title\": \"lavar louça\", \"description\": \"pela manhã\", \"status\": \"to do\", \"due_date\": \"2025-01-01\", \"priority\": \"high\"}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -103,7 +103,7 @@
 			"response": []
 		},
 		{
-			"name": "tasks",
+			"name": "Delete task",
 			"request": {
 				"method": "DELETE",
 				"header": [],
@@ -123,7 +123,52 @@
 			"response": []
 		},
 		{
-			"name": "login",
+			"name": "Filter tasks by status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseUrl}}/tasks?status=done"
+			},
+			"response": []
+		},
+		{
+			"name": "Health check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseUrl}}/health"
+			},
+			"response": []
+		},
+		{
+			"name": "List users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseUrl}}/users"
+			},
+			"response": []
+		},
+		{
+			"name": "Report tasks by status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseUrl}}/reports/tasks-by-status"
+			},
+			"response": []
+		},
+		{
+			"name": "Report tasks by user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseUrl}}/reports/tasks-by-user"
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -168,7 +213,12 @@
 				"type": "text/javascript",
 				"packages": {},
 				"exec": [
-					""
+					"pm.test(\"Response status is below 500\", function () {",
+					"    pm.expect(pm.response.code).to.be.below(500);",
+					"});",
+					"pm.test(\"Response is JSON\", function () {",
+					"    pm.response.to.be.json;",
+					"});"
 				]
 			}
 		}

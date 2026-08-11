@@ -1,17 +1,28 @@
-# Plano de Testes - API Gerenciamento de Tarefas
+# Plano de Testes - API de Gerenciamento de Tarefas
 
-| ID | Cenário | Endpoint | Método | Dados de Entrada | Resultado Esperado | Resultado Real | Status | Ambiente |
-|----|---------|----------|--------|------------------|-------------------|----------------|--------|----------|
-| TC001 | Login com credenciais válidas | `/login` | POST | `{"email": "ana@example.com", "password": "123456"}` | 200 + message "login successful" | | | Dev |
-| TC002 | Login com email inválido | `/login` | POST | `{"email": "errado@example.com", "password": "123456"}` | 400 + message "wrong credentials" | | | Dev |
-| TC003 | Login com senha errada | `/login` | POST | `{"email": "ana@example.com", "password": "errado"}` | 400 + message "wrong credentials" | | | Dev |
-| TC004 | Login com dados incompletos | `/login` | POST | `{"email": "ana@example.com"}` | 400 ou erro | | | Dev |
-| TC005 | Listar todas as tarefas | `/tasks` | GET | N/A | 200 + lista de tarefas | | | Dev |
-| TC006 | Buscar tarefa existente | `/tasks/1` | GET | N/A | 200 + dados da tarefa | | | Dev |
-| TC007 | Buscar tarefa inexistente | `/tasks/999` | GET | N/A | 404 + "task not found" | | | Dev |
-| TC008 | Criar tarefa com dados válidos | `/tasks` | POST | `{"title": "teste", "description": "desc", "status": "todo", "date": "01/01/2025"}` | 201 + tarefa com ID | | | Dev |
-| TC009 | Criar tarefa sem campos obrigatórios | `/tasks` | POST | `{"title": "teste"}` | 201 ou 400 | | | Dev |
-| TC010 | Atualizar tarefa existente | `/tasks/1` | PUT | `{"status": "done"}` | 200 + tarefa atualizada | | | Dev |
-| TC011 | Atualizar tarefa inexistente | `/tasks/999` | PUT | `{"status": "done"}` | 404 + "task not found" | | | Dev |
-| TC012 | Deletar tarefa existente | `/tasks/1` | DELETE | N/A | 200 + "task deleted" | | | Dev |
-| TC013 | Deletar tarefa inexistente | `/tasks/999` | DELETE | N/A | 404 + "task not found" | | | Dev |
+Ambiente automatizado: Flask `test_client` com uma base SQLite temporária criada para cada teste.
+
+| ID | Cenário | Endpoint | Método | Dados de Entrada | Resultado Esperado | Automação | Status |
+|----|---------|----------|--------|------------------|-------------------|-----------|--------|
+| TC001 | Health check | `/health` | GET | N/A | 200 + `status: ok` | `test_health_check_returns_ok` | Passou |
+| TC002 | Login válido | `/login` | POST | Email e password válidos | 200 + utilizador sem password | `test_login_with_valid_credentials` | Passou |
+| TC003 | Login inválido | `/login` | POST | Password incorreta | 400 + `wrong credentials` | `test_login_with_wrong_credentials_returns_400` | Passou |
+| TC004 | Login incompleto | `/login` | POST | Sem password | 400 + mensagem de campos obrigatórios | `test_login_without_password_returns_400` | Passou |
+| TC005 | Listar e buscar tarefa existente | `/tasks`, `/tasks/<id>` | GET | N/A | 200 + dados da tarefa | `test_list_and_get_existing_task` | Passou |
+| TC006 | Buscar tarefa inexistente | `/tasks/999` | GET | N/A | 404 + `task not found` | `test_get_missing_task_returns_404` | Passou |
+| TC007 | Criar tarefa válida | `/tasks` | POST | `title`, `description`, `status`, `priority`, `user_id` | 201 + tarefa com ID | `test_create_task_with_valid_payload` | Passou |
+| TC008 | Criar tarefa sem título | `/tasks` | POST | Sem `title` | 400 + `title is required` | `test_create_task_without_title_returns_400` | Passou |
+| TC009 | Criar tarefa com status inválido | `/tasks` | POST | `status: todo` | 400 + valores permitidos | `test_create_task_with_invalid_status_returns_400` | Passou |
+| TC010 | Filtrar por status | `/tasks?status=done` | GET | N/A | 200 + apenas tarefas concluídas | `test_filter_tasks_by_status` | Passou |
+| TC011 | Atualizar e eliminar tarefa | `/tasks/<id>` | PUT/DELETE | Status e prioridade válidos | 200 nas duas operações; depois 404 | `test_update_and_delete_task` | Passou |
+| TC012 | Relatório por status | `/reports/tasks-by-status` | GET | N/A | 200 + totais agrupados | `test_reports_tasks_by_status` | Passou |
+| TC013 | Relatório por utilizador | `/reports/tasks-by-user` | GET | N/A | 200 + totais por utilizador | `test_reports_tasks_by_user` | Passou |
+| TC014 | Listar utilizadores com segurança | `/users` | GET | N/A | 200 sem expor passwords | `test_users_response_does_not_expose_passwords` | Passou |
+
+## Cenários manuais pendentes
+
+- Confirmar filtros combinados por status, prioridade e utilizador.
+- Confirmar persistência dos dados após reiniciar a aplicação.
+- Confirmar o workflow Docker de ponta a ponta.
+- Validar a coleção Postman num ambiente local em execução.
+- Registrar evidências das execuções manuais.

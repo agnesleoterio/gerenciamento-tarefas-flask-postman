@@ -84,10 +84,11 @@ def get_task(task_id):
 return jsonify({'message': 'task not found'}), 404
 ```
 
-### Data Model (In-Memory)
+### Data Model (SQLite)
 Tasks dictionary structure:
 ```python
-{'id': 1, 'title': '...', 'description': '...', 'status': 'done', 'date': '01/01/2025'}
+{'id': 1, 'title': '...', 'description': '...', 'status': 'done', 'due_date': '2025-01-01',
+ 'priority': 'medium', 'user_id': 1}
 ```
 
 Users dictionary structure:
@@ -105,10 +106,12 @@ Users dictionary structure:
 
 ```
 .
-├── app.py              # Main Flask application (all routes here)
+├── app.py              # Flask application, routes and SQLite setup
 ├── pyproject.toml      # Poetry configuration
 ├── README.md           # Project documentation
 ├── postman_collection.json  # Postman API tests
+├── tests/              # Automated API tests with unittest
+├── sql_estudo.md       # SQL practice guide
 └── AGENTS.md           # This file
 ```
 
@@ -117,6 +120,6 @@ Users dictionary structure:
 ## Development Notes
 
 - App runs in debug mode when executed directly (`app.run(debug=True)`)
-- Data is stored in-memory (no database persistence)
+- Data is stored in SQLite (`tasks.db`, ignored by Git)
 - Authentication is simple credential checking (no JWT/tokens)
 - Consider adding input validation for production use
