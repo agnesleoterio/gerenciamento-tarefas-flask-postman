@@ -1,4 +1,4 @@
-name: CI
+name: CI - API tests
 
 on:
   push:
@@ -8,10 +8,12 @@ on:
 
 jobs:
   test:
+    name: Unit and smoke tests
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -22,11 +24,21 @@ jobs:
         run: pip install poetry
 
       - name: Install dependencies
-        run: poetry install
+        run: poetry install --no-root
 
-      - name: Run tests
+      - name: Run automated API tests
+        run: poetry run python -m unittest discover -s tests -p "test_*.py"
+
+      - name: Run API smoke test
         run: |
-          poetry run flask run &
+          poetry run flask run --host=127.0.0.1 --port=5000 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID' EXIT
           sleep 3
-          curl http://localhost:5000/tasks
-          curl http://localhost:5000/login
+          curl --fail http://127.0.0.1:5000/health
+          curl --fail http://127.0.0.1:5000/tasks
+          curl --fail \
+            --request POST \
+            --header "Content-Type: application/json" \
+            --data '{"email":"ana@example.com","password":"123456"}' \
+            http://127.0.0.1:5000/login
